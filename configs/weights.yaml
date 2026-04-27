@@ -1,0 +1,7 @@
+accuracy_weight: 0.9
+latency_weight: 0.05
+cost_weight: 0.05
+
+# optional advanced settings
+latency_penalty_factor: 1.0
+cost_penalty_factor: 1.0
