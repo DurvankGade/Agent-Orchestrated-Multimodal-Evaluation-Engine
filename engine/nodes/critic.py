@@ -22,6 +22,8 @@ Failures: {m['failure_count']}
 Strength:
 Weakness:
 When to use:
+
+Return ONLY this one report.
 """
         try:
             analysis[p_name] = llm.invoke(prompt).strip()

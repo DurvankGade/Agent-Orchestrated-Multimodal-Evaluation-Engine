@@ -1,18 +1,18 @@
 {
-  "tesseract": {
+  "llama3": {
     "type": "model",
-    "avg_accuracy": 0.9841229838709677,
-    "avg_latency": 0.9268542528152466,
+    "avg_accuracy": 0.5612293481826782,
+    "avg_latency": 15.299954493840536,
     "total_cost": 0,
     "failure_count": 0,
-    "score": 0.6518119185970676
+    "score": 0.1928605437278747
   },
-  "easyocr": {
-    "type": "model",
-    "avg_accuracy": 0.98,
-    "avg_latency": 0.5012996196746826,
-    "total_cost": 0,
-    "failure_count": 0,
-    "score": 0.6659480152130126
+  "gemini": {
+    "type": "api",
+    "avg_accuracy": 0.23170622189839682,
+    "avg_latency": 1.5772773424784343,
+    "total_cost": 0.006,
+    "failure_count": 2,
+    "score": -19.91289673837026
   }
 }

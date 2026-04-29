@@ -37,7 +37,7 @@ TEXT_SAMPLES = [
 OCR_SAMPLES = [
     {
         "input": "data/samples/clean_text.png",
-        "ground_truth": "Extracted Text: THIS IS A SAMPLE TEXT Text is at different regions",
+        "ground_truth": "Extracted Text: This is SAMPLE TEXT Text is at different regions",
         "task": "ocr_extraction"
     },
     {

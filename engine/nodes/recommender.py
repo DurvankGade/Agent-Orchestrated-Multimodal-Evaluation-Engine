@@ -18,8 +18,7 @@ def recommender_node(state):
 
     print(f"[Recommender] Best: {best_name}")
     
-    # Final logging and display
+    # Final logging
     save_experiment(state.get("scored_results", []), summary)
-    print_summary_table(summary)
     
     return state

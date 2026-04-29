@@ -10,7 +10,6 @@ AVAILABLE_PIPELINES = [
     "llama3",
     "gemini",
     "groq",
-    "benchmark_api",
     "tesseract",
     "easyocr",
     "whisper"
@@ -24,7 +23,7 @@ def planner_node(state):
 
     # 1. Strict Benchmark Mode
     if mode == "benchmark":
-        selected = ["gemini", "groq", "benchmark_api"]
+        selected = ["gemini", "groq"]
         state["pipeline_candidates"] = selected
         print(f"[Planner] Strict Benchmark Selection: {selected}")
         return state
@@ -46,12 +45,14 @@ You are an AI system planner.
 Modality: {modality}
 Available pipelines: {AVAILABLE_PIPELINES}
 
+Your goal is to select 2-3 pipelines to compare.
 Guidelines:
-- Choose best pipelines for the current modality.
-- Prefer Mistral/Phi3 for local text tasks.
-- Prefer Gemini/Groq for complex API tasks.
+- Choose the best candidates for the current modality.
+- For local text tasks, include Mistral, Phi3, or llama3.
+- For API tasks, include Gemini or Groq.
 
-Return ONLY a JSON list of pipelines.
+Return ONLY a JSON list of 2-3 pipeline names, try max of available or suitable pipelines.
+Example: ["mistral", "phi3","llama3"]
 """
 
     try:
