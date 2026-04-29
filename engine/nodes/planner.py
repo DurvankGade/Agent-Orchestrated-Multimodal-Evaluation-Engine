@@ -10,6 +10,9 @@ def planner_node(state):
 
     elif state["modality"] == "image":
         state["pipeline_candidates"] = ["tesseract", "easyocr"]
+
+    elif state["modality"] == "audio":
+        state["pipeline_candidates"] = ["whisper"]
     
     print(f"[Planner] Selected: {state['pipeline_candidates']}")
 

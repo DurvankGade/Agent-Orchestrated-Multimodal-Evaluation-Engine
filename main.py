@@ -62,14 +62,28 @@ def execute_and_evaluate(context, pipeline_map, ground_truth):
 
 from engine.graph.agent_graph import build_graph
 
+def run_audio_example():
+    graph = build_graph()
+
+    state = {
+        "input": r"data\samples\dont_forget_the_jacket.wav",
+        "modality": "audio",
+        "ground_truth": "Don't forget the jacket"  # adjust to your audio
+    }
+
+    result = graph.invoke(state)
+
+    print("\nAUDIO RESULT:")
+    print(result)
+
 def run_agent_system():
 
     graph = build_graph()
 
     state = {
-        "input": "Hello World",
-        "modality": "text",
-        "ground_truth": "hello world"
+        "input": r"data/samples/dont_forget_the_jacket.wav",
+        "modality": "audio",
+        "ground_truth": "Don't forget the jacket"
     }
 
     result = graph.invoke(state)
