@@ -1,0 +1,62 @@
+[
+  {
+    "pipeline": "tesseract",
+    "provider": "tesseract",
+    "type": "model",
+    "output": "Extracted Text:\nThis is SAMPLE TEXT\n\nText is at different regions",
+    "latency": 1.6686275005340576,
+    "cost": 0,
+    "cost_type": "simulated",
+    "error": null,
+    "ground_truth": "Extracted Text: THIS IS A SAMPLE TEXT Text is at different regions",
+    "sample_input": "data/samples/clean_text.png",
+    "accuracy": 0.984375,
+    "sample_score": 0.984375,
+    "processed_output": "Extracted Text:\nThis is SAMPLE TEXT\n\nText is at different regions"
+  },
+  {
+    "pipeline": "easyocr",
+    "provider": "easyocr",
+    "type": "model",
+    "output": "Extracted Text: This is SAMPLE TEXT Text at different regions",
+    "latency": 0.8699061870574951,
+    "cost": 0,
+    "cost_type": "simulated",
+    "error": null,
+    "ground_truth": "Extracted Text: THIS IS A SAMPLE TEXT Text is at different regions",
+    "sample_input": "data/samples/clean_text.png",
+    "accuracy": 0.96,
+    "sample_score": 0.96,
+    "processed_output": "Extracted Text: This is SAMPLE TEXT Text at different regions"
+  },
+  {
+    "pipeline": "tesseract",
+    "provider": "tesseract",
+    "type": "model",
+    "output": "If poison expires,\niS It more poisonous\nor no longer poisonous?\n\na",
+    "latency": 0.18508100509643555,
+    "cost": 0,
+    "cost_type": "simulated",
+    "error": null,
+    "ground_truth": "If poison expires, is it more poisonous or no longer poisonous?",
+    "sample_input": "data/samples/test1.png",
+    "accuracy": 0.9838709677419355,
+    "sample_score": 0.9838709677419355,
+    "processed_output": "If poison expires,\niS It more poisonous\nor no longer poisonous?\n\na"
+  },
+  {
+    "pipeline": "easyocr",
+    "provider": "easyocr",
+    "type": "model",
+    "output": "If poison expires, is it more poisonous Or no longer poisonous?",
+    "latency": 0.13269305229187012,
+    "cost": 0,
+    "cost_type": "simulated",
+    "error": null,
+    "ground_truth": "If poison expires, is it more poisonous or no longer poisonous?",
+    "sample_input": "data/samples/test1.png",
+    "accuracy": 1.0,
+    "sample_score": 1.0,
+    "processed_output": "If poison expires, is it more poisonous Or no longer poisonous?"
+  }
+]

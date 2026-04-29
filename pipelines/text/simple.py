@@ -8,7 +8,9 @@ def run(input_text):
     latency = max(time.time() - start, 1e-6) 
 
     return {
-        "pipeline": "simple_text",
+        "pipeline": "simple",
+        "provider": "builtin",
+        "type": "model",
         "output": output,
         "latency": latency,
         "cost": 0

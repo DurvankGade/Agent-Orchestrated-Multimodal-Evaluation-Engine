@@ -1,34 +1,32 @@
 from langchain_ollama import OllamaLLM
-
 llm = OllamaLLM(model="phi3")
 
 def critic_node(state):
-
+    summary = state.get("summary", {})
     analysis = {}
 
-    for r in state["results"]:
+    for p_name, m in summary.items():
         prompt = f"""
-Analyze this pipeline performance briefly.
+Strictly analyze the metrics. Do NOT hallucinate.
+Pipeline: {p_name}
+Accuracy: {m['avg_accuracy']:.2f}
+Latency: {m['avg_latency']:.2f}s
+Failures: {m['failure_count']}
 
-Pipeline: {r['pipeline']}
-Accuracy: {r.get('accuracy')}
-Latency: {r.get('latency')}
+Format exactly:
+Pipeline: {p_name}
+Accuracy: {m['avg_accuracy']:.2f}
+Latency: {m['avg_latency']:.2f}s
+Failures: {m['failure_count']}
 
-Give:
-1. Strength
-2. Weakness
-3. When to use
-
-Keep it under 3 lines.
+Strength:
+Weakness:
+When to use:
 """
-
         try:
-            explanation = llm.invoke(prompt)
+            analysis[p_name] = llm.invoke(prompt).strip()
         except:
-            explanation = "LLM failed"
-
-        analysis[r["pipeline"]] = explanation.strip()
+            analysis[p_name] = "Analysis Failed"
 
     state["analysis"] = analysis
-
     return state

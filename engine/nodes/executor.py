@@ -1,32 +1,61 @@
-from engine.runner import run_pipelines
-from pipelines.text.simple import run as simple_run
-from pipelines.text.llm_models import run as llm_run
-from pipelines.ocr.tesseract_pipeline import run as tess_run
-from pipelines.ocr.easyocr_pipeline import run as easy_run
-from pipelines.asr.whisper_pipeline import run as whisper_run
+from pipelines.text.gemini_provider import run as gemini
+from pipelines.text.groq_provider import run as groq
+from pipelines.text.llm_models import mistral, phi3, llama3
+from pipelines.text.benchmark_api import run as benchmark_api
+from pipelines.ocr.tesseract_pipeline import run as tess
+from pipelines.ocr.easyocr_pipeline import run as easy
+from pipelines.asr.whisper_pipeline import run as whisper
+from pipelines.text.simple import run as simple
+
+MAP = {
+    "simple": simple,
+    "mistral": mistral,
+    "phi3": phi3,
+    "llama3": llama3,
+    "gemini": gemini,
+    "groq": groq,
+    "benchmark_api": benchmark_api,
+    "tesseract": tess,
+    "easyocr": easy,
+    "whisper": whisper
+}
 
 def executor_node(state):
+    dataset = state.get("dataset", [])
+    candidates = state.get("pipeline_candidates", [])
+    task = state.get("task")
+    
+    all_results = []
 
-    pipeline_map = {
-        "simple": simple_run,
-        "mistral": lambda x: llm_run("mistral", x),
-        "phi3": lambda x: llm_run("phi3", x),
-        "tesseract": tess_run,
-        "easyocr": easy_run,
-        "whisper": whisper_run
-    }
+    print(f"[Executor] Running {len(candidates)} pipelines for Task: {task.name if task else 'None'}")
 
-    class Dummy:
-        pass
+    for sample in dataset:
+        sample_input = sample["input"]
+        sample_gt = sample["ground_truth"]
+        
+        # Determine task instruction
+        instruction = task.instruction if task else "Process the input."
+            
+        for p_name in candidates:
+            try:
+                # All pipelines now follow: run(input_data, task_instruction)
+                res = MAP[p_name](sample_input, instruction)
+                
+                res["ground_truth"] = sample_gt
+                res["sample_input"] = sample_input
+                all_results.append(res)
+            except Exception as e:
+                all_results.append({
+                    "pipeline": p_name,
+                    "provider": p_name,
+                    "output": "",
+                    "latency": 5.0,
+                    "cost": 0,
+                    "cost_type": "simulated",
+                    "error": str(e),
+                    "ground_truth": sample_gt,
+                    "sample_input": sample_input
+                })
 
-    context = Dummy()
-    context.input = state["input"]
-    context.pipeline_candidates = state["pipeline_candidates"]
-
-    context = run_pipelines(context, pipeline_map)
-
-    state["results"] = context.results
-
-    print(f"[Executor] Ran {len(state['results'])} pipelines")
-
+    state["raw_results"] = all_results
     return state

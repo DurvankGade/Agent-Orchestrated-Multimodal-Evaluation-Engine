@@ -1,0 +1,18 @@
+{
+  "tesseract": {
+    "type": "model",
+    "avg_accuracy": 0.9841229838709677,
+    "avg_latency": 0.9268542528152466,
+    "total_cost": 0,
+    "failure_count": 0,
+    "score": 0.6518119185970676
+  },
+  "easyocr": {
+    "type": "model",
+    "avg_accuracy": 0.98,
+    "avg_latency": 0.5012996196746826,
+    "total_cost": 0,
+    "failure_count": 0,
+    "score": 0.6659480152130126
+  }
+}
